@@ -20,7 +20,7 @@ const Header = () => {
         <div className=" w-full inline-block py-8">
           <div className="md:float-left block">
             <Link href="/">
-              <span className="cursor-pointer font-bold text-4xl text-white">
+              <span className="cursor-pointer font-bold text-4xl text-white pl-8">
                 AboutTHAT
               </span>
             </Link>
