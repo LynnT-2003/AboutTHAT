@@ -31,7 +31,7 @@ const CategoryPost = ({ posts }) => {
 export default CategoryPost;
 
 // Fetch data at build time
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const posts = await getCategoryPost(params.slug);
 
   return {
