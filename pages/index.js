@@ -1,13 +1,21 @@
 import Head from "next/head";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
+import { useState, useEffect } from "react";
 
 // const posts = [
 //   { title: "React Testing", excerpt: "Learn React Testing" },
 //   { title: "React with Tailwind", excerpt: "Learn React with Tailwind" },
 // ];
 
-export default function Home({ posts }) {
+export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    getPosts().then((data) => {
+      setPosts(data);
+    });
+  }, []);
   console.log("FETCHED POSTS IN INDEX", posts);
   return (
     <div className="container mx-auto px-10 mb-8">
@@ -31,12 +39,12 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getStaticProps() {
-  const posts = await getPosts();
-  return {
-    props: { posts },
-  };
-}
+// export async function getStaticProps() {
+//   const posts = await getPosts();
+//   return {
+//     props: { posts },
+//   };
+// }
 
 // // Fetch data at build time
 // export async function getServerSideProps() {
