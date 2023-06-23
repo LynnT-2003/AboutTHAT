@@ -42,14 +42,14 @@ const PostDetails = ({ post }) => {
   );
 };
 
-export default PostDetails;
-
 export async function getServerSideProps({ params }) {
   const post = await getPostDetails(params.slug);
   return {
     props: { post },
   };
 }
+
+export default PostDetails;
 
 // export async function getStaticProps({ params }) {
 //   const data = await getPostDetails(params.slug);
