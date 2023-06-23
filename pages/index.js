@@ -8,6 +8,7 @@ import { getPosts } from "../services";
 // ];
 
 export default function Home({ posts }) {
+  console.log("FETCHED POSTS IN INDEX", posts);
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
