@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { getPostDetails, getPosts } from "../../services";
 
@@ -12,10 +12,23 @@ import {
   Loader,
 } from "../../components";
 
-const PostDetails = ({ post }) => {
+const PostDetails = () => {
   const router = useRouter();
 
-  if (router.isFallback) {
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    if (router.query.slug) {
+      const fetchPostDetails = async () => {
+        const postDetails = await getPostDetails(router.query.slug);
+        setPost(postDetails);
+      };
+
+      fetchPostDetails();
+    }
+  }, [router.query.slug]);
+
+  if (router.isFallback || !post) {
     return <Loader />;
   }
 
@@ -42,12 +55,12 @@ const PostDetails = ({ post }) => {
   );
 };
 
-export async function getServerSideProps({ params }) {
-  const post = await getPostDetails(params.slug);
-  return {
-    props: { post },
-  };
-}
+// export async function getServerSideProps({ params }) {
+//   const post = await getPostDetails(params.slug);
+//   return {
+//     props: { post },
+//   };
+// }
 
 export default PostDetails;
 
