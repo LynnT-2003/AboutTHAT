@@ -2,14 +2,19 @@ import Head from "next/head";
 import { PostCard, Categories, PostWidget } from "../components";
 import { getPosts } from "../services";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-// const posts = [
-//   { title: "React Testing", excerpt: "Learn React Testing" },
-//   { title: "React with Tailwind", excerpt: "Learn React with Tailwind" },
-// ];
+const handleScrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     getPosts().then((data) => {
@@ -17,6 +22,20 @@ export default function Home() {
     });
   }, []);
   console.log("FETCHED POSTS IN INDEX", posts);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    handleResize(); // Call it once to set the initial value
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -27,6 +46,14 @@ export default function Home() {
           {posts.map((post, index) => (
             <PostCard post={post.node} key={post.title} />
           ))}
+          {isMobile && (
+            <button
+              className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow"
+              onClick={handleScrollToTop}
+            >
+              Scroll to Top
+            </button>
+          )}
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
@@ -38,18 +65,3 @@ export default function Home() {
     </div>
   );
 }
-
-// export async function getStaticProps() {
-//   const posts = await getPosts();
-//   return {
-//     props: { posts },
-//   };
-// }
-
-// // Fetch data at build time
-// export async function getServerSideProps() {
-//   const posts = (await getPosts()) || [];
-//   return {
-//     props: { posts },
-//   };
-// }
