@@ -46,14 +46,6 @@ export default function Home() {
           {posts.map((post, index) => (
             <PostCard post={post.node} key={post.title} />
           ))}
-          {isMobile && (
-            <button
-              className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow"
-              onClick={handleScrollToTop}
-            >
-              Scroll to Top
-            </button>
-          )}
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
@@ -61,6 +53,17 @@ export default function Home() {
             <Categories />
           </div>
         </div>
+
+        {isMobile && (
+          <div className="flex justify-center py-0">
+            <button
+              className="transition duration-500 transform hover:-translate-y-1 inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer"
+              onClick={handleScrollToTop}
+            >
+              Scroll to Top
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
