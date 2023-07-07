@@ -5,7 +5,7 @@ import Link from "next/link";
 const PostCard = ({ post }) => {
   console.log("FETCHED POSTS IN POSTCARD:", post);
   return (
-    <div className="bg-black bg-opacity-70 shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
+    <div className="bg-white bg-opacity-10 shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
       <div className="relative overflow-hidden shadow-md pb-80 mb-6">
         <img
           src={post.featuredImage.url}
@@ -13,7 +13,7 @@ const PostCard = ({ post }) => {
           className="object-center absolute h-80 w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg"
         />
       </div>
-      <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold text-white">
+      <h1 className="transition duration-700 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold text-white px-2">
         <Link href={`/post/${post.slug}`}>{post.title}</Link>
       </h1>
       <div className="block lg:flex text-center items-center justify-center mb-8 w-full ">
